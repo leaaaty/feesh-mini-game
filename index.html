@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Mini Game</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.min.js"></script>
+</head>
+<body>
+  <!-- Phaser canvas goes inside this container -->
+  <div id="gameContainer"></div>
+
+  <!-- Intro screen HTML (outside Phaser container) -->
+  <div id="introScreen">
+    <h1 id="gameTitle">🐠 Swim Feesh Swim! 🐠</h1>
+
+    <div id="howToPlay">
+        <h2>How to Play</h2>
+        <p>Help this lazy ass Enna to avoid obstacles like feesh, ryuguards, and vox. Survive as long as you can!</p>
+    </div>
+
+    <div id="controls">
+        <h2>Controls</h2>
+        <p><strong>PC:</strong> Arrow keys to move left/right</p>
+        <p><strong>Mobile:</strong> TBA</p>
+    </div>
+
+    <br/>
+    <fieldset>
+        <legend>Leaderboard:</legend>
+        <p>1. test</p>
+        <ol id="top10Leaderboard"></ol>
+    </fieldset>
+
+    <input id="usernameInput" type="text" placeholder="Enter your name">
+    <button id="startBtnIntro">Start Game</button>
+
+    <footer id="gameCredits">
+        <p>Created by leaaa_TY</p>
+    </footer>
+  </div>
+
+  <button id="pauseBtn"><span>||</span></button>
+
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3/dist/phaser.min.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
