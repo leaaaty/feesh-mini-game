@@ -18,6 +18,7 @@ html, body {
     width: 480px;
     height: 640px;
     margin: 0 auto;
+    display: none; /* hidden by default */
 }
 
 #gameContainer canvas {
@@ -102,11 +103,11 @@ html, body {
 /* Intro Screen */
 #introScreen {
     position: absolute;
-    top: 0;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     width: 480px;
-    min-height: 100vh; /* full viewport height */
+    height: 640px; /* fit screen */
     z-index: 1000;
     background: linear-gradient(to bottom, #1CA3EC, #1f6956);
     color: #fff;
@@ -116,6 +117,7 @@ html, body {
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
+    overflow-y: auto;
 }
 
 /* Title */
