@@ -15,6 +15,7 @@ let cursors;
 let gameState = 'home'; // home, play, pause, gameover
 let username = '';
 let leaderboard = [];
+let touchMovementX = 0; // for mobile touch controls
 
 // ---------------- Preload ----------------
 function preload() {
@@ -31,6 +32,33 @@ function preload() {
 // ---------------- Create ----------------
 function create() {
   cursors = this.input.keyboard.createCursorKeys();
+
+  // Mobile touch controls
+  this.input.on('pointerdown', (pointer) => {
+    if (gameState !== 'play') return;
+    const halfWidth = this.scale.width / 2;
+    if (pointer.x < halfWidth) {
+      touchMovementX = -700; // Move left
+    } else {
+      touchMovementX = 700;  // Move right
+    }
+  });
+
+  this.input.on('pointerup', () => {
+    touchMovementX = 0;
+  });
+
+  this.input.on('pointermove', (pointer) => {
+    if (gameState !== 'play') return;
+    const halfWidth = this.scale.width / 2;
+    if (pointer.isDown) {
+      if (pointer.x < halfWidth) {
+        touchMovementX = -700;
+      } else {
+        touchMovementX = 700;
+      }
+    }
+  });
 
   // Pause button
   const pauseBtn = document.getElementById('pauseBtn');
@@ -105,6 +133,9 @@ function showHomeScreen(scene) {
   // Hide pause button
   document.getElementById('pauseBtn').style.display = 'none';
 
+  // Hide game container
+  document.getElementById('gameContainer').style.display = 'none';
+
   // Show intro screen
   const introScreen = document.getElementById('introScreen');
   introScreen.style.display = 'flex';
@@ -136,6 +167,9 @@ function startGame(scene) {
   score = 0;
   speedMultiplier = 5;
 
+  // Show game container
+  document.getElementById('gameContainer').style.display = 'block';
+
   // Show pause button
   document.getElementById('pauseBtn').style.display = 'flex';
 
@@ -166,10 +200,22 @@ function startGame(scene) {
 function handlePlayerMovement() {
   if (!player) return;
 
-  player.setVelocityX(0);
   const moveSpeed = 700; // player speed
-  if (cursors.left.isDown) player.setVelocityX(-moveSpeed);
-  else if (cursors.right.isDown) player.setVelocityX(moveSpeed);
+  
+  // Keyboard controls (for desktop)
+  if (cursors.left.isDown) {
+    player.setVelocityX(-moveSpeed);
+  } else if (cursors.right.isDown) {
+    player.setVelocityX(moveSpeed);
+  } 
+  // Touch controls (for mobile)
+  else if (touchMovementX !== 0) {
+    player.setVelocityX(touchMovementX);
+  }
+  // No input
+  else {
+    player.setVelocityX(0);
+  }
 }
 
 // ---------------- Spawn Obstacles ----------------
